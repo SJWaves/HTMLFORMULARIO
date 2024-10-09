@@ -130,11 +130,11 @@
             // Convertir el XML a una cadena
             var xmlString = new XMLSerializer().serializeToString(xmlDoc);
 
-            // Crear un enlace para descargar el archivo XML
+            // Crear un enlace para descargar el archivo XML con nombre "RobotNivel2.xml"
             var a = document.createElement("a");
             a.textContent = "Descargar XML";
             a.href = "data:text/xml;charset=utf-8," + encodeURIComponent(xmlString);
-            a.download = "D:\\Documentos\\RocketBot\\Nivel 2\\respuesta.xml"; // Ruta actualizada
+            a.download = "RobotNivel2.xml";  // Nombre del archivo actualizado
             document.body.appendChild(a);
 
             a.click(); // Descargar automáticamente el archivo

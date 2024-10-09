@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   RocketBot
-  </title>
-  <style>
-   body {
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RocketBot</title>
+    <style>
+        body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
             background-color: #f9f9f9;
             color: #333;
@@ -86,32 +84,27 @@
         a:hover {
             text-decoration: underline;
         }
-  </style>
- </head>
- <body>
-  <h1>
-   RocketBot
-  </h1>
-  <h2>
-   Robot Nivel 2: Sara Julieth Martínez Arias
-  </h2>
-  <form action="javascript:convertirAXML()" id="myForm">
-   <label for="nombre">
-    Nombre:
-   </label>
-   <input id="nombre" name="nombre" required="" type="text"/>
-   <label for="correo">
-    Correo electrónico:
-   </label>
-   <input id="correo" name="correo" required="" type="email"/>
-   <label for="telefono">
-    Número de teléfono:
-   </label>
-   <input id="telefono" name="telefono" type="tel"/>
-   <input type="submit" value="Enviar"/>
-  </form>
-  <script>
-   function convertirAXML() {
+    </style>
+</head>
+<body>
+    <h1>RocketBot</h1>
+    <h2>Robot Nivel 2: Sara Julieth Martínez Arias</h2>
+    
+    <form id="myForm" action="javascript:convertirAXML()">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        
+        <label for="correo">Correo electrónico:</label>
+        <input type="email" id="correo" name="correo" required>
+        
+        <label for="telefono">Número de teléfono:</label>
+        <input type="tel" id="telefono" name="telefono">
+        
+        <input type="submit" value="Enviar">
+    </form>
+
+    <script>
+        function convertirAXML() {
             // Obtener los valores de los campos del formulario
             var nombre = document.getElementById("nombre").value;
             var correo = document.getElementById("correo").value;
@@ -141,11 +134,11 @@
             var a = document.createElement("a");
             a.textContent = "Descargar XML";
             a.href = "data:text/xml;charset=utf-8," + encodeURIComponent(xmlString);
-            a.download = "D:\\Documentos\\RocketBot\\Nivel 2\\respuesta.xml.txt";
+            a.download = "D:\\Documentos\\RocketBot\\Nivel 2\\respuesta.xml"; // Ruta actualizada
             document.body.appendChild(a);
 
             a.click(); // Descargar automáticamente el archivo
         }
-  </script>
- </body>
+    </script>
+</body>
 </html>

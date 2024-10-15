@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RocketBot</title>
+    <title>Formulario RocketBot</title>
     <style>
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f9f9f9;
+            background-color: #f0f3f4;
             color: #333;
             margin: 0;
             padding: 0;
@@ -19,17 +19,17 @@
         }
 
         h1 {
-            font-size: 28px;
-            margin-bottom: 5px;
+            font-size: 30px;
             color: #2c3e50;
             text-align: center;
+            margin-bottom: 5px;
         }
 
         h2 {
-            font-size: 20px;
-            margin-bottom: 20px;
+            font-size: 18px;
             color: #7f8c8d;
             text-align: center;
+            margin-bottom: 20px;
         }
 
         form {
@@ -37,19 +37,21 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 30px;
-            width: 320px;
+            width: 350px;
             text-align: left;
         }
 
         label {
             font-size: 14px;
             color: #7f8c8d;
+            display: block;
+            margin-bottom: 8px;
         }
 
         input[type="text"], input[type="email"], input[type="tel"] {
             width: 100%;
             padding: 12px;
-            margin: 10px 0 20px 0;
+            margin-bottom: 20px;
             border: 1px solid #dcdcdc;
             border-radius: 5px;
             background-color: #f5f5f5;
@@ -64,7 +66,7 @@
             color: white;
             border: none;
             border-radius: 5px;
-            font-size: 14px;
+            font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
@@ -87,7 +89,7 @@
     </style>
 </head>
 <body>
-    <h1>RocketBot</h1>
+    <h1>Formulario RocketBot</h1>
     <h2>Robot Nivel 2: Sara Julieth Martínez Arias</h2>
     
     <form id="myForm" action="javascript:convertirAXML()">
@@ -98,7 +100,7 @@
         <input type="email" id="correo" name="correo" required>
         
         <label for="telefono">Número de teléfono:</label>
-        <input type="tel" id="telefono" name="telefono">
+        <input type="tel" id="telefono" name="telefono" required>
         
         <input type="submit" value="Enviar">
     </form>
@@ -110,11 +112,11 @@
             var correo = document.getElementById("correo").value;
             var telefono = document.getElementById("telefono").value;
 
-            // Crear un nuevo elemento XML
+            // Crear un nuevo documento XML
             var xmlDoc = new DOMParser().parseFromString("<datos></datos>", "text/xml");
             var root = xmlDoc.documentElement;
 
-            // Agregar elementos al XML
+            // Agregar los valores al XML
             var nombreElement = xmlDoc.createElement("nombre");
             nombreElement.textContent = nombre;
             root.appendChild(nombreElement);
@@ -130,14 +132,18 @@
             // Convertir el XML a una cadena
             var xmlString = new XMLSerializer().serializeToString(xmlDoc);
 
-            // Crear un enlace para descargar el archivo XML con nombre "Formulario.xml"
+            // Crear y disparar el enlace de descarga
             var a = document.createElement("a");
-            a.textContent = "Descargar XML";
             a.href = "data:text/xml;charset=utf-8," + encodeURIComponent(xmlString);
-            a.download = "Formulario.xml";  // Nombre del archivo actualizado
-            document.body.appendChild(a);
+            a.download = "Formulario.xml";  // Nombre del archivo XML
+            a.style.display = "none";  // Ocultar el enlace
 
-            a.click(); // Descargar automáticamente el archivo
+            // Añadir y hacer clic en el enlace de descarga
+            document.body.appendChild(a);
+            a.click();
+
+            // Eliminar el enlace de descarga después de hacer clic
+            document.body.removeChild(a);
         }
     </script>
 </body>

@@ -130,7 +130,7 @@
             // Convertir el XML a una cadena
             var xmlString = new XMLSerializer().serializeToString(xmlDoc);
 
-            // Crear un enlace para descargar el archivo XML con nombre "RobotNivel2.xml"
+            // Crear un enlace para descargar el archivo XML con nombre "Formulario.xml"
             var a = document.createElement("a");
             a.textContent = "Descargar XML";
             a.href = "data:text/xml;charset=utf-8," + encodeURIComponent(xmlString);

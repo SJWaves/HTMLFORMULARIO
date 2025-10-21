@@ -163,8 +163,25 @@
             document.body.removeChild(a);
         }
     </script>
+
+    <script>
+        document.getElementById('myForm').addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const data = Object.fromEntries(new FormData(e.target).entries());
+
+          // 👇 aquí va la URL del webhook de n8n
+          await fetch('http://localhost:5678/webhook/registro', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+          });
+
+          alert('Formulario enviado correctamente');
+        });
+    </script>
 </body>
 </html>
+
 
 
 

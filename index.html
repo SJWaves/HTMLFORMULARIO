@@ -86,13 +86,22 @@
         a:hover {
             text-decoration: underline;
         }
-    </style>
-</head>
-<body>
-    <h1>Formulario RocketBot</h1>
-    <h2>Robot Nivel 2</h2>
-    
-    <form id="myForm" action="javascript:convertirAXML()">
+        
+        .logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        </style>
+    </head>
+    <body>
+        <img class="logo" src="/home/sara/Documents/Proyectos/P_Zat/Blue/Formulario/2NV_Logo.png" alt="2NV logo" />
+
+        <h1>Formulario Blue</h1>
+        <h2>Ejemplo de formulario</h2>
+        
+        <form id="myForm" action="javascript:convertirAXML()">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" required>
         
@@ -101,6 +110,9 @@
         
         <label for="telefono">Número de teléfono:</label>
         <input type="tel" id="telefono" name="telefono" required>
+        
+        <label for="Empresa">Empresa:</label>
+        <input type="text" id="Empresa" name="Empresa" required>
         
         <input type="submit" value="Enviar">
     </form>
@@ -111,6 +123,7 @@
             var nombre = document.getElementById("nombre").value;
             var correo = document.getElementById("correo").value;
             var telefono = document.getElementById("telefono").value;
+            var empresa = document.getElementById("Empresa").value;
 
             // Crear un nuevo documento XML
             var xmlDoc = new DOMParser().parseFromString("<datos></datos>", "text/xml");
@@ -128,6 +141,10 @@
             var telefonoElement = xmlDoc.createElement("telefono");
             telefonoElement.textContent = telefono;
             root.appendChild(telefonoElement);
+
+            var empresaElement = xmlDoc.createElement("empresa");
+            empresaElement.textContent = empresa;
+            root.appendChild(empresaElement);
 
             // Convertir el XML a una cadena
             var xmlString = new XMLSerializer().serializeToString(xmlDoc);
@@ -148,4 +165,5 @@
     </script>
 </body>
 </html>
+
 

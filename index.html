@@ -1,187 +1,358 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Formulario RocketBot</title>
     <style>
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f0f3f4;
-            color: #333;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
+        :root{
+            --bg:#f6f8f9;
+            --card:#ffffff;
+            --muted:#7b868d;
+            --accent:#2563eb; /* elegante azul */
+            --radius:12px;
+            --max-width:720px;
         }
 
-        h1 {
-            font-size: 30px;
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 5px;
+        html,body{
+            height:100%;
+            margin:0;
+            font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(180deg, var(--bg), #eef3f7);
+            color:#12202b;
         }
 
-        h2 {
-            font-size: 18px;
-            color: #7f8c8d;
-            text-align: center;
-            margin-bottom: 20px;
+        .wrap{
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:32px;
+            box-sizing:border-box;
         }
 
-        form {
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            width: 350px;
-            text-align: left;
+        .card{
+            width:100%;
+            max-width:var(--max-width);
+            background:var(--card);
+            border-radius:var(--radius);
+            box-shadow: 0 10px 30px rgba(18,32,43,0.07);
+            padding:28px;
+            box-sizing:border-box;
+            display:grid;
+            grid-template-columns: 1fr;
+            gap:18px;
         }
 
-        label {
-            font-size: 14px;
-            color: #7f8c8d;
-            display: block;
-            margin-bottom: 8px;
+        .header{
+            display:flex;
+            gap:16px;
+            align-items:center;
         }
 
-        input[type="text"], input[type="email"], input[type="tel"] {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #dcdcdc;
-            border-radius: 5px;
-            background-color: #f5f5f5;
-            font-size: 14px;
-            box-sizing: border-box;
+        .logo{
+            width:56px;
+            height:56px;
+            object-fit:cover;
+            border-radius:10px;
+            background:linear-gradient(135deg,#e6eefc,#f5fbff);
+            display:block;
+            flex:0 0 56px;
         }
 
-        input[type="submit"] {
-            width: 100%;
-            padding: 12px;
-            background-color: #3498db;
-            color: white;
+        .titles{
+            display:flex;
+            flex-direction:column;
+            gap:4px;
+        }
+
+        h1{
+            margin:0;
+            font-size:20px;
+            color:#0f1720;
+        }
+
+        p.lead{
+            margin:0;
+            color:var(--muted);
+            font-size:13px;
+        }
+
+        form{
+            display:grid;
+            gap:14px;
+        }
+
+        /* Grid layout for inputs on wider screens */
+        .fields{
+            display:grid;
+            grid-template-columns: 1fr;
+            gap:12px;
+        }
+
+        @media(min-width:760px){
+            .fields{
+                grid-template-columns: 1fr 1fr; /* two columns */
+                gap:16px;
+            }
+        }
+
+        label{
+            display:block;
+            font-size:13px;
+            color:var(--muted);
+            margin-bottom:6px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea,
+        select {
+            width:100%;
+            padding:12px 14px;
+            border-radius:10px;
+            border:1px solid #e6eef3;
+            background:#fbfdff;
+            font-size:14px;
+            color:#0f1720;
+            box-sizing:border-box;
+            outline: none;
+            transition: box-shadow .15s ease, border-color .15s ease;
+        }
+
+        input:focus, textarea:focus, select:focus{
+            box-shadow: 0 4px 18px rgba(37,99,235,0.12);
+            border-color: rgba(37,99,235,0.28);
+        }
+
+        textarea {
+            min-height:110px;
+            resize:vertical;
+        }
+
+        .full{
+            grid-column: 1 / -1;
+        }
+
+        .checkbox-group, .checkbox-row{
+            display:flex;
+            flex-direction:column;
+            gap:8px;
+        }
+
+        .checkbox-row{
+            flex-direction:row;
+            flex-wrap:wrap;
+            gap:10px;
+        }
+
+        .checkbox-row label{
+            display:inline-flex;
+            align-items:center;
+            gap:8px;
+            background:#f7fbff;
+            padding:8px 10px;
+            border-radius:10px;
+            border:1px solid #f0f6ff;
+            color:#123;
+            font-size:13px;
+        }
+
+        .actions{
+            display:flex;
+            gap:12px;
+            align-items:center;
+            justify-content:space-between;
+            margin-top:6px;
+        }
+
+        .btn{
+            padding:12px 16px;
+            border-radius:10px;
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+            cursor:pointer;
+            font-weight:600;
+            font-size:14px;
         }
 
-        input[type="submit"]:hover {
-            background-color: #2980b9;
+        .btn-primary{
+            background:var(--accent);
+            color:white;
+            box-shadow: 0 6px 18px rgba(37,99,235,0.16);
+            flex:1;
         }
 
-        a {
-            display: inline-block;
-            margin-top: 20px;
-            text-decoration: none;
-            color: #3498db;
-            font-size: 14px;
+        .btn-ghost{
+            background:transparent;
+            color:var(--muted);
+            border-radius:10px;
+            padding:10px 14px;
+            border:1px solid transparent;
+            font-weight:600;
+            cursor:pointer;
         }
 
-        a:hover {
-            text-decoration: underline;
+        small.hint{
+            color:var(--muted);
+            font-size:12px;
         }
-        
-        .logo {
-            width: 120px;
-            height: auto;
-            margin-bottom: 20px;
-            border-radius: 8px;
-        }
-        </style>
-    </head>
-    <body>
-        <img class="logo" src="2NV_Logo.png" alt="2NV logo" />
 
-        <h1>Formulario Blue</h1>
-        <h2>Ejemplo de formulario</h2>
-        
-        <form id="myForm" action="javascript:convertirAXML()">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required>
-        
-        <label for="correo">Correo electrónico:</label>
-        <input type="email" id="correo" name="correo" required>
-        
-        <label for="telefono">Número de teléfono:</label>
-        <input type="tel" id="telefono" name="telefono" required>
-        
-        <label for="Empresa">Empresa:</label>
-        <input type="text" id="Empresa" name="Empresa" required>
-        
-        <input type="submit" value="Enviar">
-    </form>
+        footer.note{
+            text-align:center;
+            color:var(--muted);
+            font-size:13px;
+            margin-top:8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <section class="card" aria-labelledby="title">
+            <div class="header">
+                <img class="logo" src="2NV_Logo.png" alt="2NV logo" />
+                <div class="titles">
+                    <h1 id="title">Formulario Blue — RocketBot</h1>
+                    <p class="lead">Déjanos tus datos.</p>
+                </div>
+            </div>
+
+            <form id="myForm" novalidate>
+                <div class="fields">
+                    <div>
+                        <label for="nombre">1. Nombre</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required />
+                    </div>
+
+                    <div>
+                        <label for="correo">2. Correo Electrónico</label>
+                        <input type="email" id="correo" name="correo" placeholder="tu@ejemplo.com" required />
+                    </div>
+
+                    <div>
+                        <label for="telefono">3. Número de Teléfono</label>
+                        <input type="tel" id="telefono" name="telefono" placeholder="+34 600 000 000" inputmode="tel" required />
+                    </div>
+
+                    <div>
+                        <label for="empresa">4. Empresa</label>
+                        <input type="text" id="empresa" name="empresa" placeholder="Nombre de la empresa" />
+                    </div>
+
+                    <!-- full width: intereses -->
+                    <div class="full">
+                        <label>5. Intereses?</label>
+                        <div class="checkbox-row" role="group" aria-label="Intereses">
+                            <label><input type="checkbox" name="intereses" value="Marketing"> Marketing</label>
+                            <label><input type="checkbox" name="intereses" value="Tecnología"> Tecnología</label>
+                            <label><input type="checkbox" name="intereses" value="Ventas"> Ventas</label>
+                            <label><input type="checkbox" name="intereses" value="Producto"> Producto</label>
+                            <label><input type="checkbox" name="intereses" value="Otro"> Otro</label>
+                        </div>
+                        <small class="hint">Selecciona uno o varios (si aplica).</small>
+                    </div>
+
+                    <!-- full width: tipo de eventos -->
+                    <div class="full">
+                        <label>6. ¿Qué tipo de eventos le interesan?</label>
+                        <div class="checkbox-row" role="group" aria-label="Tipos de eventos">
+                            <label><input type="checkbox" name="tipo_eventos" value="Conferencias"> Conferencias</label>
+                            <label><input type="checkbox" name="tipo_eventos" value="Talleres"> Talleres</label>
+                            <label><input type="checkbox" name="tipo_eventos" value="Webinars"> Webinars</label>
+                            <label><input type="checkbox" name="tipo_eventos" value="Meetups"> Meetups</label>
+                            <label><input type="checkbox" name="tipo_eventos" value="Ferias"> Ferias</label>
+                        </div>
+                        <small class="hint">Selecciona uno o varios.</small>
+                    </div>
+
+                    <!-- comentarios -->
+                    <div class="full">
+                        <label for="comentarios">7. Otros comentarios</label>
+                        <textarea id="comentarios" name="comentarios" placeholder="Cuéntanos algo más..."></textarea>
+                    </div>
+                </div>
+
+                <div class="actions full">
+                    <button type="submit" class="btn btn-primary" id="submitBtn">Enviar</button>
+                    <button type="button" class="btn btn-ghost" id="resetBtn">Limpiar</button>
+                </div>
+
+                <footer class="note full">
+                    Tus datos se enviarán como JSON al webhook configurado.
+                </footer>
+            </form>
+        </section>
+    </div>
 
     <script>
-        function convertirAXML() {
-            // Obtener los valores de los campos del formulario
-            var nombre = document.getElementById("nombre").value;
-            var correo = document.getElementById("correo").value;
-            var telefono = document.getElementById("telefono").value;
-            var empresa = document.getElementById("Empresa").value;
+        (function(){
+            const WEBHOOK_URL = 'https://blucap.app.n8n.cloud/webhook-test/8b2dafcb-a8d5-44aa-8711-bd3f2c81e367';
 
-            // Crear un nuevo documento XML
-            var xmlDoc = new DOMParser().parseFromString("<datos></datos>", "text/xml");
-            var root = xmlDoc.documentElement;
+            const form = document.getElementById('myForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const resetBtn = document.getElementById('resetBtn');
 
-            // Agregar los valores al XML
-            var nombreElement = xmlDoc.createElement("nombre");
-            nombreElement.textContent = nombre;
-            root.appendChild(nombreElement);
+            function getCheckedValues(name){
+                const nodes = Array.from(document.querySelectorAll('input[name="'+name+'"]'));
+                return nodes.filter(n => n.checked).map(n => n.value);
+            }
 
-            var correoElement = xmlDoc.createElement("correo");
-            correoElement.textContent = correo;
-            root.appendChild(correoElement);
+            async function handleSubmit(e){
+                e.preventDefault();
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Enviando...';
 
-            var telefonoElement = xmlDoc.createElement("telefono");
-            telefonoElement.textContent = telefono;
-            root.appendChild(telefonoElement);
+                // Validación simple
+                const nombre = form.nombre.value.trim();
+                const correo = form.correo.value.trim();
+                const telefono = form.telefono.value.trim();
 
-            var empresaElement = xmlDoc.createElement("empresa");
-            empresaElement.textContent = empresa;
-            root.appendChild(empresaElement);
+                if(!nombre || !correo || !telefono){
+                    alert('Por favor completa los campos requeridos: Nombre, Correo y Teléfono.');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Enviar';
+                    return;
+                }
 
-            // Convertir el XML a una cadena
-            var xmlString = new XMLSerializer().serializeToString(xmlDoc);
+                const payload = {
+                    nombre: nombre,
+                    correo: correo,
+                    telefono: telefono,
+                    empresa: form.empresa.value.trim(),
+                    intereses: getCheckedValues('intereses'),
+                    tipo_eventos: getCheckedValues('tipo_eventos'),
+                    comentarios: form.comentarios.value.trim(),
+                    submitted_at: new Date().toISOString()
+                };
 
-            // Crear y disparar el enlace de descarga
-            var a = document.createElement("a");
-            a.href = "data:text/xml;charset=utf-8," + encodeURIComponent(xmlString);
-            a.download = "Formulario.xml";  // Nombre del archivo XML
-            a.style.display = "none";  // Ocultar el enlace
+                try {
+                    const res = await fetch(WEBHOOK_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(payload)
+                    });
 
-            // Añadir y hacer clic en el enlace de descarga
-            document.body.appendChild(a);
-            a.click();
+                    if(!res.ok){
+                        const text = await res.text().catch(()=> '');
+                        throw new Error('Error en el envío: ' + (text || res.status));
+                    }
 
-            // Eliminar el enlace de descarga después de hacer clic
-            document.body.removeChild(a);
-        }
-    </script>
+                    alert('Formulario enviado correctamente.');
+                    form.reset();
+                } catch (err){
+                    console.error('Error enviando formulario:', err);
+                    alert('Ocurrió un error al enviar el formulario. Revisa la consola o inténtalo de nuevo.');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Enviar';
+                }
+            }
 
-    <script>
-        document.getElementById('myForm').addEventListener('submit', async (e) => {
-          e.preventDefault();
-          const data = Object.fromEntries(new FormData(e.target).entries());
-
-          // 👇 aquí va la URL del webhook de n8n
-          await fetch('http://localhost:5678/webhook/registro', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(data)
-          });
-
-          alert('Formulario enviado correctamente');
-        });
+            form.addEventListener('submit', handleSubmit);
+            resetBtn.addEventListener('click', () => form.reset());
+        })();
     </script>
 </body>
 </html>
-
-
-
-
